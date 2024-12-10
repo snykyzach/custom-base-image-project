@@ -1,24 +1,23 @@
-# Custom Base Image Dockerfile
-FROM debian:bullseye-slim
+# Custom Base Image Based on Node.js
+FROM node:18.13.0
 
-# Environment variables
-ENV NODE_VERSION=18.13.0
+# Set environment variables
+ENV NODE_ENV=production
 
-# Install required dependencies
+# Install necessary tools and clean up
 RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
-    gnupg \
- && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
- && apt-get install -y nodejs \
- && npm install -g npm@latest \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-# Set default work directory
+# Create directories
+RUN mkdir -p /usr/src/app /tmp/extracted_files
+
+# Set working directory
 WORKDIR /usr/src/app
 
-# Expose standard ports
+# Expose ports
 EXPOSE 3001 9229
 
-# Define entrypoint (optional, if commonly used)
+# Define entrypoint
 CMD ["node"]
