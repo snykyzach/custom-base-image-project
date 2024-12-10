@@ -1,23 +1,27 @@
-# Custom Base Image Based on Node.js
+# Custom Base Image Dockerfile
 FROM node:18.13.0
 
 # Set environment variables
 ENV NODE_ENV=production
 
-# Install necessary tools and clean up
+# Install minimal dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     ca-certificates \
+    gnupg \
     && rm -rf /var/lib/apt/lists/*
 
-# Create directories
-RUN mkdir -p /usr/src/app /tmp/extracted_files
-
-# Set working directory
+# Create and set work directory
 WORKDIR /usr/src/app
 
-# Expose ports
-EXPOSE 3001 9229
+# Copy the application code (if applicable)
+# COPY . .
 
-# Define entrypoint
+# Install project dependencies
+# RUN npm install --only=production
+
+# Expose required ports
+EXPOSE 3000 9229
+
+# Default command
 CMD ["node"]
