@@ -1,5 +1,5 @@
 # Custom Base Image Dockerfile
-FROM node:18.13.0
+FROM node:18.20.8
 
 # Set environment variables
 ENV NODE_ENV=production
